@@ -1,22 +1,22 @@
 package edu.ntnu.idi.idatt.model;
 
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
 public class DeckOfCards {
   private final char[] suit = {'S', 'H', 'D', 'C'};
-  private PlayingCard[] cards = new PlayingCard[52];
+  private final PlayingCard[] cards;
 
   public DeckOfCards() {
     cards = generateDeck();
   }
 
   private PlayingCard[] generateDeck() {
-    PlayingCard[] deck = new PlayingCard[52];
-    int i = 0;
-    for (char s : suit) {
-      for (int f = 1; f <= 13; f++) {
-        deck[i++] = new PlayingCard(s, f);
-      }
-    }
-    return deck;
+    return IntStream.range(0, suit.length) // Iterate over suit indices
+        .mapToObj(i -> suit[i]) // Convert indices to suit chars
+        .flatMap(s -> IntStream.rangeClosed(1, 13) // Iterate over ranks 1-13
+            .mapToObj(rank -> new PlayingCard(s, rank))) // Create PlayingCard
+        .toArray(PlayingCard[]::new);
   }
 
   public PlayingCard[] dealHand(int n) {
@@ -25,15 +25,11 @@ public class DeckOfCards {
     }
 
     shuffle();
-    int r;
-    PlayingCard[] hand = new PlayingCard[n];
-    for (int i = 0; i < n; i++) {
-      do {
-        r = (int) (Math.random() * 52);
-      } while (hand[i] != null && hand[i].hashCode() == cards[r].hashCode());
-      hand[i] = cards[r];
-    }
-    return hand;
+    return IntStream.range(0, suit.length) // Iterate over suit indices
+        .mapToObj(i -> suit[i]) // Convert indices to suit chars
+        .flatMap(s -> IntStream.rangeClosed(1, 13) // Iterate over ranks 1-13
+            .mapToObj(rank -> new PlayingCard(s, rank))) // Create PlayingCard
+        .toArray(PlayingCard[]::new); // Collect into an array
   }
 
   public void shuffle() {
