@@ -83,12 +83,24 @@ public class PlayingCard {
   }
 
   /**
-   * Returns the face of the card (value between 1 and 13).
+   * Returns the face of the card (value between 1 and 13), with symbols for 1, 11, 12 and 13.
    *
    * @return the face of the card
    */
   public int getFace() {
     return face;
+  }
+
+  public char getFaceAsSymbol() {
+    char faceSymbol;
+    switch (face) {
+      case 1 -> faceSymbol = 'A';
+      case 11 -> faceSymbol = 'J';
+      case 12 -> faceSymbol = 'Q';
+      case 13 -> faceSymbol = 'K';
+      default -> faceSymbol = (char) (face + '0');
+    }
+    return faceSymbol;
   }
 
   @Override

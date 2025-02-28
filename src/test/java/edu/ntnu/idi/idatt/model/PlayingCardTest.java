@@ -2,12 +2,9 @@ package edu.ntnu.idi.idatt.model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.Arrays;
-import java.util.Collections;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 
 class PlayingCardTest {
   private final char[] validSuits = {'♠', '♥', '♦', '♣'};
@@ -76,5 +73,15 @@ class PlayingCardTest {
   @Test
   void getFace() {
     assertTrue(playingCard.getFace() >= 1 && playingCard.getFace() <= 13);
+  }
+
+  @Test
+  void testGetFaceSymbol() {
+    if (Character.isDigit(playingCard.getFace())) {
+      assertTrue((int) playingCard.getFaceAsSymbol() < 1
+          || (int) playingCard.getFaceAsSymbol() > 10);
+    } else {
+        assertTrue(String.valueOf(playingCard.getFaceAsSymbol()).matches("[AJQK]"));
+    }
   }
 }
