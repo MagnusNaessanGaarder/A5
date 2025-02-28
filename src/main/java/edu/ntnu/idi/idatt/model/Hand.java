@@ -19,20 +19,8 @@ public class Hand {
   }
 
   public boolean hasFlush() {
-    try {
-      String firstSuitColor = checkColor(getHand()[0]);
-      return Arrays.stream(hand).allMatch(c -> {
-        try {
-          return checkColor(c).equals(firstSuitColor);
-        } catch (CardException e) {
-          e.printStackTrace();
-          return false;
-        }
-      });
-    } catch (CardException e) {
-      e.printStackTrace();
-      return false;
-    }
+    char firstSuit = hand[0].getSuit();
+    return Arrays.stream(hand).allMatch(c -> c.getSuit() == (firstSuit));
   }
 
   public String checkColor(PlayingCard card) throws CardException {
