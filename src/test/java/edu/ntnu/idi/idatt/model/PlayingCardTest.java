@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
 class PlayingCardTest {
+  private final char[] validSuits = {'♠', '♥', '♦', '♣'};
   private final char[] suits = {'S', 'H', 'D', 'C'};
   private PlayingCard playingCard;
 
@@ -50,12 +51,26 @@ class PlayingCardTest {
 
   @Test
   void getAsString() {
-    assertEquals(2, playingCard.getAsString().length());
+    String actual = playingCard.getAsString();
+    String numStr = actual.join(" ", actual.split("\\D")).strip();
+    String suitStr = actual.join(" ", actual.split("\\d")).strip();
+
+    //Checking if the face value is between 1 and 13
+    assertDoesNotThrow(() -> {Integer.parseInt(numStr);},
+        "The face value is not a number");
+
+    //Checking if the suit is one of the four suits
+    assertTrue(String.valueOf(validSuits).contains(suitStr));
   }
 
   @Test
   void getSuit() {
-    assertTrue(new String(suits).contains(String.valueOf(playingCard.getSuit())));
+    assertTrue(new String(validSuits).contains(String.valueOf(playingCard.getSuit())));
+  }
+
+  @Test
+  void getSuitChar() {
+    assertTrue(new String(suits).contains(String.valueOf(playingCard.getSuitChar())));
   }
 
   @Test

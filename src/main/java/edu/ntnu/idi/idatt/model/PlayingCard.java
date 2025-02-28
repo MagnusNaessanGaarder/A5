@@ -1,5 +1,7 @@
 package edu.ntnu.idi.idatt.model;
 
+import java.util.HashMap;
+
 /**
  * Represents a playing card. A playing card has a number (face) between
  * 1 and 13, where 1 is called an Ace, 11 = Knight, 12 = Queen and 13 = King.
@@ -8,7 +10,7 @@ package edu.ntnu.idi.idatt.model;
  */
 public class PlayingCard {
 
-  private final char suit; // 'S'=spade, 'H'=heart, 'D'=diamonds, 'C'=clubs
+  private final HashMap<Character, Character> suit; // 'S'=spade, 'H'=heart, 'D'=diamonds, 'C'=clubs
   private final int face; // a number between 1 and 13
 
   /**
@@ -33,8 +35,22 @@ public class PlayingCard {
       throw new IllegalArgumentException("Parameter face must be a number between 1 to 13");
     }
 
-    this.suit = suit;
+    this.suit = findSuit(suit);
     this.face = face;
+  }
+
+  private HashMap<Character, Character> findSuit(char s) {
+    //setting the suit to uppercase in case it is lowercase
+    s = Character.toUpperCase(s);
+
+    HashMap<Character, Character> suit = new HashMap<>();
+    switch (s) {
+        case 'S' -> suit.put('S', '♠');
+        case 'H' -> suit.put('H', '♥');
+        case 'D' -> suit.put('D', '♦');
+        case 'C' -> suit.put('C', '♣');
+    }
+    return suit;
   }
 
   /**
@@ -44,17 +60,26 @@ public class PlayingCard {
    * @return the suit and face of the card as a string
    */
   public String getAsString() {
-    return String.format("%s%s", suit, face);
+    return String.format("%s%s", getSuit(), face);
   }
 
   /**
-   * Returns the suit of the card, 'S' for Spades, 'H' for Heart,
-   * 'D' for Diamonds and 'C' for clubs.
+   * Returns the symbol suit of the card.
    *
    * @return the suit of the card
    */
   public char getSuit() {
-    return suit;
+    return suit.get(suit.keySet().iterator().next());
+  }
+
+  /**
+   * Returns the suit of the card as a character, 'S' for Spades, 'H' for Heart,
+   * 'D' for Diamonds and 'C' for clubs.
+   *
+   * @return the suit of the card as a character
+   */
+  public char getSuitChar() {
+    return suit.keySet().iterator().next();
   }
 
   /**
