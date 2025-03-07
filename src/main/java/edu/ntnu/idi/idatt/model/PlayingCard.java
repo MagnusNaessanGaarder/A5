@@ -6,7 +6,7 @@ package edu.ntnu.idi.idatt.model;
  * The card can also be one of 4 suits: Spade, Heart, Diamonds and Clubs.
  *
  */
-public class PlayingCard extends observableCard {
+public class PlayingCard {
   private final int face; // a number between 1 and 13'
   private final Suit suit;
 
@@ -86,18 +86,6 @@ public class PlayingCard extends observableCard {
     return face;
   }
 
-  public char getFaceAsSymbol() {
-    char faceSymbol;
-    switch (face) {
-      case 1 -> faceSymbol = 'A';
-      case 11 -> faceSymbol = 'J';
-      case 12 -> faceSymbol = 'Q';
-      case 13 -> faceSymbol = 'K';
-      default -> faceSymbol = (char) (face + '0');
-    }
-    return faceSymbol;
-  }
-
   public String getSuitName() {
     return suit.getSuitName();
   }
@@ -124,24 +112,5 @@ public class PlayingCard extends observableCard {
     hash = 31 * hash + getSuit();
     hash = 31 * hash + getFace();
     return hash;
-  }
-
-  @Override
-  public void addObserver(CardObserver observer) {
-    if (!super.getObserverList().contains(observer)) {
-      super.getObserverList().add(observer);
-    }
-  }
-
-  @Override
-  public void removeObserver(CardObserver observer) {
-    if (super.getObserverList().isEmpty()) {
-      super.getObserverList().remove(observer);
-    }
-  }
-
-  @Override
-  public void notifyObservers() {
-    super.getObserverList().forEach(CardObserver::update);
   }
 }
