@@ -1,17 +1,14 @@
 package edu.ntnu.idi.idatt.model;
 
-import java.util.HashMap;
-
 /**
  * Represents a playing card. A playing card has a number (face) between
  * 1 and 13, where 1 is called an Ace, 11 = Knight, 12 = Queen and 13 = King.
  * The card can also be one of 4 suits: Spade, Heart, Diamonds and Clubs.
  *
  */
-public class PlayingCard {
-
-  private final HashMap<Character, Character> suit; // 'S'=spade, 'H'=heart, 'D'=diamonds, 'C'=clubs
-  private final int face; // a number between 1 and 13
+public class PlayingCard extends observableCard {
+  private final int face; // a number between 1 and 13'
+  private final Suit suit;
 
   /**
    * Creates an instance of a PlayingCard with a given suit and face.
@@ -39,18 +36,16 @@ public class PlayingCard {
     this.face = face;
   }
 
-  private HashMap<Character, Character> findSuit(char s) {
+  private Suit findSuit(char s) {
     //setting the suit to uppercase in case it is lowercase
     s = Character.toUpperCase(s);
-
-    HashMap<Character, Character> suit = new HashMap<>();
     switch (s) {
-        case 'S' -> suit.put('S', '♠');
-        case 'H' -> suit.put('H', '♥');
-        case 'D' -> suit.put('D', '♦');
-        case 'C' -> suit.put('C', '♣');
+        case 'S' -> {return Suit.SPADES;}
+        case 'H' -> {return Suit.HEARTS;}
+        case 'D' -> {return Suit.DIAMONDS;}
+        case 'C' -> {return Suit.CLUBS;}
+        default -> throw new IllegalArgumentException("Invalid suit");
     }
-    return suit;
   }
 
   /**
@@ -69,7 +64,7 @@ public class PlayingCard {
    * @return the suit of the card
    */
   public char getSuit() {
-    return suit.get(suit.keySet().iterator().next());
+    return suit.getSuitSymbol();
   }
 
   /**
@@ -79,7 +74,7 @@ public class PlayingCard {
    * @return the suit of the card as a character
    */
   public char getSuitChar() {
-    return suit.keySet().iterator().next();
+    return suit.getSuitChar();
   }
 
   /**
@@ -103,6 +98,14 @@ public class PlayingCard {
     return faceSymbol;
   }
 
+  public String getSuitName() {
+    return suit.getSuitName();
+  }
+
+  public String getColor() {
+    return suit.isRed() ? "red" : "black";
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -121,5 +124,24 @@ public class PlayingCard {
     hash = 31 * hash + getSuit();
     hash = 31 * hash + getFace();
     return hash;
+  }
+
+  @Override
+  public void addObserver(CardObserver observer) {
+    if (!super.getObserverList().contains(observer)) {
+      super.getObserverList().add(observer);
+    }
+  }
+
+  @Override
+  public void removeObserver(CardObserver observer) {
+    if (super.getObserverList().isEmpty()) {
+      super.getObserverList().remove(observer);
+    }
+  }
+
+  @Override
+  public void notifyObservers() {
+    super.getObserverList().forEach(CardObserver::update);
   }
 }

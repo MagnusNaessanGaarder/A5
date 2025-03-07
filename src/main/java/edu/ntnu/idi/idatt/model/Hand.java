@@ -3,7 +3,7 @@ package edu.ntnu.idi.idatt.model;
 import java.util.Arrays;
 import javax.smartcardio.CardException;
 
-public class Hand {
+public class Hand implements CardObserver {
   private PlayingCard[] hand = new PlayingCard[5];
   public Hand() {
     hand = newHand();
@@ -23,13 +23,12 @@ public class Hand {
     return Arrays.stream(hand).allMatch(c -> c.getSuit() == (firstSuit));
   }
 
-  public String checkColor(PlayingCard card) throws CardException {
-    if (card.getSuitChar() == 'C' || card.getSuitChar() == 'S') {
-      return "Black";
-    } else if (card.getSuitChar() == 'H' || card.getSuitChar() == 'D') {
-      return "Red";
-    } else {
-      throw new CardException("Invalid suit");
+  @Override
+  public void update() {
+    if (hasFlush()) {
+      System.out.println("Flush!");
+
+
     }
   }
 }
