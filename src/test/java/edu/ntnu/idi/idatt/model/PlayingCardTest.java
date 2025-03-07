@@ -78,10 +78,12 @@ class PlayingCardTest {
   @Test
   void testGetFaceSymbol() {
     if (Character.isDigit(playingCard.getFace())) {
-      assertTrue((int) playingCard.getFaceAsSymbol() < 1
-          || (int) playingCard.getFaceAsSymbol() > 10);
+      assertTrue(((int) playingCard.getFaceAsSymbol()) <= 1
+          || ((int) playingCard.getFaceAsSymbol()) >= 10, "The face value is not " +
+          "a valid number");
     } else {
-        assertTrue(String.valueOf(playingCard.getFaceAsSymbol()).matches("[AJQK]"));
+        assertTrue(String.valueOf(playingCard.getFaceAsSymbol()).matches("[AJQK]"),
+            "The face value is not a valid letter");
     }
   }
 }
