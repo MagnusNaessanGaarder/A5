@@ -7,7 +7,7 @@ package edu.ntnu.idi.idatt.model;
  *
  */
 public class PlayingCard {
-  private final int face; // a number between 1 and 13'
+  private final char face; // a number between 1 and 13'
   private final Suit suit;
 
   /**
@@ -33,10 +33,10 @@ public class PlayingCard {
     }
 
     this.suit = findSuit(suit);
-    this.face = face;
+    this.face = getFormattedFace(face);
   }
 
-  private Suit findSuit(char s) {
+  private Suit findSuit(char s) throws IllegalArgumentException {
     //setting the suit to uppercase in case it is lowercase
     s = Character.toUpperCase(s);
     switch (s) {
@@ -82,7 +82,7 @@ public class PlayingCard {
    *
    * @return the face of the card
    */
-  public int getFace() {
+  public char getFace() {
     return face;
   }
 
@@ -92,6 +92,16 @@ public class PlayingCard {
 
   public String getColor() {
     return suit.isRed() ? "red" : "black";
+  }
+
+  private char getFormattedFace(int f) {
+    switch (f) {
+      case 1 -> {return 'A';}
+      case 11 -> {return 'J';}
+      case 12 -> {return 'Q';}
+      case 13 -> {return 'K';}
+      default -> {return Character.forDigit(face, 10);}
+    }
   }
 
   @Override
