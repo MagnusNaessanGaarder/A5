@@ -2,7 +2,7 @@ package edu.ntnu.idi.idatt.app;
 
 import static javafx.application.Application.launch;
 
-import edu.ntnu.idi.idatt.view.controller.GUI;
+import edu.ntnu.idi.idatt.view.GUI;
 
 public class MainApp {
 
