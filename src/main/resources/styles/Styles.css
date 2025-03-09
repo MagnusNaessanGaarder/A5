@@ -64,7 +64,7 @@
 }
 
 .sidebar-title {
-    -fx-font-size: 4em;
+    -fx-font-size: 3.2em;
     -fx-text-fill: -card-wht;
     -fx-label-padding: 0, -50px;
     -fx-background-color: transparent;
