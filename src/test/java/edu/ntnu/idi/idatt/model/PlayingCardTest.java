@@ -2,11 +2,12 @@ package edu.ntnu.idi.idatt.model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import edu.ntnu.idi.idatt.Testable;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class PlayingCardTest {
+public class PlayingCardTest implements Testable {
   private final char[] validSuits = {'♠', '♥', '♦', '♣'};
   private final char[] suits = {'S', 'H', 'D', 'C'};
   private PlayingCard playingCard;
@@ -49,8 +50,8 @@ class PlayingCardTest {
   @Test
   void getAsString() {
     String actual = playingCard.getAsString();
-    String numStr = actual.join(" ", actual.split("\\D")).strip();
-    String suitStr = actual.join(" ", actual.split("\\d")).strip();
+    String numStr = String.join(" ", actual.split("\\D")).strip();
+    String suitStr = String.join(" ", actual.split("\\d")).strip();
 
     //Checking if the face value is between 1 and 13
     assertDoesNotThrow(() -> {Integer.parseInt(numStr);},
@@ -71,19 +72,37 @@ class PlayingCardTest {
   }
 
   @Test
-  void getFace() {
-    assertTrue(playingCard.getFace() >= 1 && playingCard.getFace() <= 13);
-  }
-
-  @Test
   void testGetFaceSymbol() {
-    if (Character.isDigit(playingCard.getFace())) {
-      assertTrue(((int) playingCard.getFaceAsSymbol()) <= 1
-          || ((int) playingCard.getFaceAsSymbol()) >= 10, "The face value is not " +
+    if (playingCard.getFace().matches("\\d+")) {
+      assertTrue(Integer.parseInt(playingCard.getFace()) >= 1
+          && Integer.parseInt(playingCard.getFace()) <= 10, "The face value is not " +
           "a valid number");
     } else {
-        assertTrue(String.valueOf(playingCard.getFaceAsSymbol()).matches("[AJQK]"),
-            "The face value is not a valid letter");
+      assertTrue(String.valueOf(playingCard.getFace()).matches("[AJQK]"),
+          "The face value is not a valid letter");
     }
+  }
+
+  @Override
+  public void test() {
+    this.setUp();
+    this.testConstructor();
+    this.tearDown();
+
+    this.setUp();
+    this.getAsString();
+    this.tearDown();
+
+    this.setUp();
+    this.getSuit();
+    this.tearDown();
+
+    this.setUp();
+    this.getSuitChar();
+    this.tearDown();
+
+    this.setUp();
+    this.testGetFaceSymbol();
+    this.tearDown();
   }
 }
