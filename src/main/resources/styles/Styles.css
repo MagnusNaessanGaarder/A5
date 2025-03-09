@@ -1,78 +1,196 @@
+@import url('https://fonts.googleapis.com/css2?family=Atma:wght@300;400;500;600;700&family=Chewy&family=Rozha+One&display=swap');
+.rozha-one-regular {
+    -fx-font-family: "Rozha One", serif;
+    -fx-font-weight: 400;
+    -fx-font-style: normal;
+}
+
 * {
     -fx-start-margin:0;
     -fx-end-margin:0;
-    -fx-font-size: 1em;
-    -fx-font-family: "roboto";
-    -fx-font-weight: bold;
 
     /* Colors */
-    blk-800: #0D0D0D;
-    blk-600: #1A2226;
-    blk-400: #545759;
+    -blk: #000000FF;
 
-    wht-800: #F2F2F2;
-    wht-200: #8B8C8C;
+    -bg-900: #481C0C;
+    -bg-800: #732D14;
+    -bg-600: #A6411C;
+    -bg-400: #D95525;
+    -bg-200: #F24E29;
 
-    cta-orange: #ffa934;
-    cta-orange-unavailable: #8f7f70;
-    cta-green: #70da2f;
-    cta-green-unavailable: #5f7f70;
+    -wht-800: #ece6e6;
+    -wht-200: #bdbaba;
 
-    card-red: #f85454;
-    card-black: #333333;
+    -cta-purple: #6E25D9;
+    -cta-purple-hover: #3f1180;
+    -cta-purple-unavailable: #947ea1;
+    -cta-mint: #25D9B5;
+    -cta-mint-hover: #11594c;
+    -cta-mint-unavailable: #80a694;
 
-    -fx-background-color: blk-800;
-    -fx-text-fill: wht-800;
+    -card-red: #af2d20;
+    -card-black: #2b2727;
+    -card-wht: #f4dcc8;
+
+    -fx-background-color: -bg-400;
+    -fx-text-fill: -wht-800;
 }
 
 .main-window {
-    -fx-padding: 10px;
-    -fx-background-color: blk-800;
+    -fx-padding:0;
+    -fx-background-color: -bg-400;
     -fx-fit-to-width: 100%;
     -fx-fit-to-height: 100%;
 }
 
+.main-content {
+    -fx-text-fill: -wht-800;
+    -fx-padding: 50px;
+}
+
+.right-sidebar {
+    -fx-text-fill: -card-wht;
+    -fx-background-color: -bg-900;
+    -fx-padding: 50px;
+}
+
+.sidebar-label {
+    -fx-font-size: 1.5em;
+    -fx-text-fill: -card-wht;
+    -fx-background-color: transparent;
+    -fx-font-family: "Roboto-Black";
+    -fx-font-weight: 800;
+    -fx-text-alignment: left;
+}
+
+.sidebar-title {
+    -fx-font-size: 4em;
+    -fx-text-fill: -card-wht;
+    -fx-label-padding: 0, -50px;
+    -fx-background-color: transparent;
+    -fx-font-family: "Roboto-Black";
+    -fx-font-weight: 800;
+    -fx-text-alignment: left;
+}
+
+.title {
+    -fx-font-size: 12em;
+    -fx-text-fill: -blk;
+    -fx-text-alignment: left;
+    -fx-effect:dropshadow(three-pass-box, -card-wht, 7.5, 20, 0, 0);
+
+}
+
+.hand-label {
+    -fx-font-size: 1.7em;
+    -fx-text-fill: -card-wht;
+    -fx-background-color: transparent;
+    -fx-text-alignment: center;
+    -fx-font-family: "Roboto";
+    -fx-font-weight: 500;
+}
+
 .card {
-    -fx-background-color: wht-800;
-    -fx-padding: 10px;
-    -fx-spacing: 10px;
-    -fx-border-radius: 10px;
+    -fx-font-family: "Chewy";
+    -fx-font-weight: 400;
+    -fx-background-color: -card-wht;
+    -fx-padding: 1em;
+    -fx-border-radius: 1em;
+    -fx-background-radius: 1em;
+    -fx-alignment: center;
+    -fx-spacing: 1.5em;
+    -fx-pref-width: 1.7em;
+    -fx-pref-height: 1em;
 }
 
-.card.corner-label {
-    -fx-padding: 10px;
-    -fx-left-margin:0;
-    -fx-top-margin:0;
-    -fx-content-display: left;
-    -fx-font-size: 0.5em;
+.corner-label {
+    -fx-font-size: 2em;
+    -fx-alignment: top-left;
+    -fx-background-color: transparent;
+    -fx-padding: 5px 0, 0, 5px;
+    -fx-max-width: 130px;
+    -fx-max-height: 20px;
 }
 
-.card.main-label {
-    -fx-padding: 10px;
-    -fx-font-size: 3em;
+.main-label {
+    -fx-font-size: 7em;
+    -fx-alignment: center;
+    -fx-background-color: transparent;
+    -fx-max-width: 130px;
 }
 
 Label {
-    -fx-font-size: 1em;
-    -fx-font-family: "roboto";
-    -fx-font-weight: bold;
+    -fx-background-color: transparent;
 }
 
 .red {
-    -fx-text-fill: card-red;
+    -fx-text-fill: -card-red;
 }
 
 .card.red {
-    -fx-border-color: card-red;
-    -fx-border-width: 3px;
+    -fx-border-color: -card-red;
+    -fx-border-width: 5px;
+    -fx-border-radius: 1em;
+    -fx-background-radius: 1.5em;
 }
 
 .black {
-    -fx-text-fill: card-black;
+    -fx-text-fill: -card-black;
 }
+
 .card.black {
-    -fx-border-color: card-black;
+    -fx-border-color: -card-black;;
     -fx-border-width: 5px;
-    -fx-outline-color: wht-800;
-    -fx-outline-width: 2px;
+    -fx-border-radius: 1em;
+    -fx-background-radius: 1.5em;
+}
+
+.card-view {
+    -fx-background-color: -bg-600;
+    -fx-padding: 20px;
+    -fx-spacing: 10px;
+    -fx-border-radius: 2em;
+    -fx-background-radius: 2em;
+}
+
+.card-outline {
+    -fx-fit-to-width: 100%;
+    -fx-fit-to-height: 100%;
+    -fx-background-color: -card-wht;
+    -fx-border-radius: 1.2em;
+    -fx-background-radius: 1.2em;
+    -fx-pref-width: -1;
+}
+
+.action-bar {
+    -fx-background-color: transparent;
+    -fx-padding: 20px;
+    -fx-spacing: 50px;
+    -fx-alignment: center;
+    -fx-content-display: center;
+}
+
+.btn {
+    -fx-background-color: -cta-purple;
+    -fx-text-fill: -card-wht;
+    -fx-text-alignment: center;
+    -fx-font-size: 1.5em;
+    -fx-font-family: "Roboto";
+    -fx-font-weight: 800;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-alignment: center;
+}
+
+.btn:hover {
+    -fx-underline: true;
+    -fx-background-color: -cta-purple-hover;
+}
+
+.btn.unavailable {
+    -fx-background-color: -cta-purple-unavailable;
+}
+.btn.unavailable:hover {
+    -fx-underline: false;
+    -fx-background-color: -cta-purple-unavailable;
 }
