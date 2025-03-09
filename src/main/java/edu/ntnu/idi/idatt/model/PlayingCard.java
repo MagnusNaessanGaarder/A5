@@ -1,5 +1,7 @@
 package edu.ntnu.idi.idatt.model;
 
+import java.util.Objects;
+
 /**
  * Represents a playing card. A playing card has a number (face) between
  * 1 and 13, where 1 is called an Ace, 11 = Knight, 12 = Queen and 13 = King.
@@ -7,7 +9,7 @@ package edu.ntnu.idi.idatt.model;
  *
  */
 public class PlayingCard {
-  private final char face; // a number between 1 and 13'
+  private final int face; // a number between 1 and 13'
   private final Suit suit;
 
   /**
@@ -33,7 +35,7 @@ public class PlayingCard {
     }
 
     this.suit = findSuit(suit);
-    this.face = getFormattedFace(face);
+    this.face = face;
   }
 
   private Suit findSuit(char s) throws IllegalArgumentException {
@@ -55,7 +57,7 @@ public class PlayingCard {
    * @return the suit and face of the card as a string
    */
   public String getAsString() {
-    return String.format("%s%s", getSuit(), face);
+    return String.format("%s%s", getSuit(), getFace());
   }
 
   /**
@@ -82,25 +84,24 @@ public class PlayingCard {
    *
    * @return the face of the card
    */
-  public char getFace() {
-    return face;
+  public String getFace() {
+    return getFormattedFace();
   }
-
-  public String getSuitName() {
-    return suit.getSuitName();
+  public int getFaceValue() {
+    return face;
   }
 
   public String getColor() {
     return suit.isRed() ? "red" : "black";
   }
 
-  private char getFormattedFace(int f) {
-    switch (f) {
-      case 1 -> {return 'A';}
-      case 11 -> {return 'J';}
-      case 12 -> {return 'Q';}
-      case 13 -> {return 'K';}
-      default -> {return Character.forDigit(face, 10);}
+  private String getFormattedFace() {
+    switch (face) {
+      case 1 -> {return "A";}
+      case 11 -> {return "J";}
+      case 12 -> {return "Q";}
+      case 13 -> {return "K";}
+      default -> {return String.valueOf(face);}
     }
   }
 
@@ -113,14 +114,19 @@ public class PlayingCard {
       return false;
     }
     PlayingCard otherCard = (PlayingCard) o;
-    return getSuit() == otherCard.getSuit() && getFace() == otherCard.getFace();
+    return getSuit() == otherCard.getSuit() && Objects.equals(getFace(), otherCard.getFace());
   }
 
   @Override
   public int hashCode() {
     int hash = 7;
     hash = 31 * hash + getSuit();
-    hash = 31 * hash + getFace();
+    hash = 31 * hash + face;
     return hash;
   }
+
+  @Override
+    public String toString() {
+        return "PlayingCard{" + "face = " + face + ", suit = " + suit.toString() + '}';
+    }
 }

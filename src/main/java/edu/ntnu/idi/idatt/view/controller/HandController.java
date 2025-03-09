@@ -5,7 +5,7 @@ import edu.ntnu.idi.idatt.model.PlayingCard;
 import java.util.Arrays;
 
 public class HandController {
-  private final Hand<PlayingCard> hand;
+  private Hand<PlayingCard> hand;
 
   public HandController(Hand<PlayingCard> hand) {
     if (hand.getHand().length == 0 || hand.getHand().length > 5) {
@@ -15,7 +15,7 @@ public class HandController {
   }
 
   public void changeHand() {
-    hand.newHand();
+    this.hand = new Hand<>(hand.newHand());
   }
 
   public PlayingCard[] getHand() {
@@ -25,5 +25,22 @@ public class HandController {
   public boolean hasFlush() {
     char firstSuit = hand.getHand()[0].getSuit();
     return Arrays.stream(hand.getHand()).allMatch(c -> c.getSuit() == (firstSuit));
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    HandController otherHandController = (HandController) o;
+    return this.hand.equals(otherHandController.hand);
+  }
+
+  @Override
+  public String toString() {
+    return Arrays.stream(hand.getHand()).map(PlayingCard::toString).reduce("", (a, b) -> a + b);
   }
 }

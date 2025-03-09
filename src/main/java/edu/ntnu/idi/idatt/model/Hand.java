@@ -9,9 +9,10 @@ public class Hand<T extends PlayingCard> implements Dealable<T> {
   public Hand() {
     hand = newHand();
   }
+
   public Hand(PlayingCard[] hand) {
-    if (hand.length == 0 || hand.length > 5) {
-      throw new IllegalArgumentException("Invalid number of cards in hand");
+    if (hand.length != 5) {
+      throw new IllegalArgumentException("Hand must contain 5 cards");
     }
     this.hand = hand;
   }
@@ -20,13 +21,41 @@ public class Hand<T extends PlayingCard> implements Dealable<T> {
   public PlayingCard[] newHand() {
     return deck.dealHand(hand.length);
   }
+
   @Override
   public PlayingCard[] getHand() {
     return hand;
   }
 
-  private boolean hasFlush() {
-    char firstSuit = hand[0].getSuit();
-    return Arrays.stream(hand).allMatch(c -> c.getSuit() == (firstSuit));
+  @Override
+  public boolean equals(Object o) {
+      if (this == o || hand == o) {
+      return true;
+      }
+      if (o == null || getClass() != o.getClass()) {
+      return false;
+      }
+
+      Hand<?> otherHand = (Hand<?>) o;
+      for (PlayingCard card : hand) {
+        if (!Arrays.asList(otherHand.getHand()).contains(card)) {
+          return false;
+        }
+      }
+      return true;
   }
+
+  @Override
+  public int hashCode() {
+    int hashCode = 0;
+    for (PlayingCard card : hand) {
+      hashCode += card.hashCode();
+    }
+    return hashCode;
+  }
+
+  @Override
+    public String toString() {
+        return Arrays.stream(hand).map(PlayingCard::toString).reduce("", (a, b) -> a + b);
+    }
 }
