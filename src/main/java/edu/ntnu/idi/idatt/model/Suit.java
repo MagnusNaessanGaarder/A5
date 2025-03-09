@@ -78,4 +78,9 @@ public enum Suit {
   public abstract char getSuitSymbol();
   public abstract char getSuitChar();
   public abstract String getSuitName();
+
+  @Override
+  public String toString() {
+      return getSuitName();
+  }
 }
